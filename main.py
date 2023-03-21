@@ -113,7 +113,8 @@ async def chat(req: Request, signature: str, timestamp: str, nonce: str, openid:
     state = user_states[msg.FromUserName]
 
     # Reset the chatbot if the user hasn't sent a message in the last 30 minutes.
-    if state.last_visit_time is not None and int(datetime.now().timestamp()) - state.last_visit_time > 60 * 30:
+    if state.last_visit_time is not None and (int(datetime.now().timestamp()) - state.last_visit_time) > (60 * 30):
+        print("reset")
         state.chat = Chat()
 
     # Handle the "reset" command.
